@@ -1,11 +1,7 @@
 import React from "react";
 
-const Gist = ({ url }) => {
-  return (
-    <div>
-      <p>{url}</p>
-    </div>
-  );
+const Gist = ({ url, style }) => {
+  return <ul style={style}>{url}</ul>;
 };
 
 export default Gist;

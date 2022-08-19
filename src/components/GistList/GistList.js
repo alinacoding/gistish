@@ -3,7 +3,7 @@ import Gist from "../Gist/Gist.component";
 
 const GistList = ({ gists }) => {
   if (!gists) {
-    return <div>Here</div>;
+    return <div>No gists available</div>;
   }
 
   const itemStyles = {
@@ -13,15 +13,12 @@ const GistList = ({ gists }) => {
     display: "inline-block",
   };
 
-  const movieItems = gists.map((gist, i) => (
+  const gistItems = gists.map((gist, i) => (
     <div key={i}>
-      <ul style={itemStyles} key={i}>
-        {gist.url}
-      </ul>
+      <Gist style={itemStyles} url={gist.url} />
     </div>
   ));
-  console.log(movieItems);
-  return <div>{movieItems}</div>;
+  return <div>{gistItems}</div>;
 };
 
 export default GistList;
