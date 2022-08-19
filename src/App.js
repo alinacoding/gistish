@@ -8,6 +8,7 @@ const App = () => {
   const [gists, setGists] = useState([]);
   const [queryUser, setQueryUser] = useState("");
   const [submittedButton, setSubmittedButton] = useState(false);
+  const [queryUserChanged, setQueryUserChanged] = useState("false");
 
   useEffect(() => {
     console.log(submittedButton);
@@ -27,7 +28,7 @@ const App = () => {
           setError(error);
         });
     }
-  }, [submittedButton]);
+  }, [submittedButton, queryUserChanged]);
 
   if (error) {
     return <div>{error.message}</div>;
@@ -41,8 +42,19 @@ const App = () => {
               onSubmit={(event) => {
                 console.log("Submitted");
                 event.preventDefault();
-                setSubmittedButton(true);
-                setGists(gists);
+                if (!error) {
+                  console.log("No errors");
+                  setSubmittedButton(true);
+                  setQueryUser(queryUser);
+                  setGists(gists);
+                  setQueryUserChanged(!queryUserChanged);
+                } else {
+                  setGists([]);
+                  setQueryUser("");
+                  setError(error);
+                  setSubmittedButton(false);
+                  setQueryUserChanged(!queryUserChanged);
+                }
               }}
             >
               <input

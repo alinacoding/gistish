@@ -13,12 +13,19 @@ const GistList = ({ gists }) => {
     display: "inline-block",
   };
 
-  const gistItems = gists.map((gist, i) => (
-    <div key={i}>
-      <Gist style={itemStyles} url={gist.url} />
-    </div>
-  ));
-  return <div>{gistItems}</div>;
+  let gistItems = [];
+  if (gists) {
+    gistItems = gists.map((gist, i) => (
+      <div key={i}>
+        <Gist style={itemStyles} url={gist.url} />
+      </div>
+    ));
+  }
+  if (gistItems.length) {
+    return <div>{gistItems}</div>;
+  } else {
+    return <div></div>;
+  }
 };
 
 export default GistList;
