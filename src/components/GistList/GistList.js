@@ -6,18 +6,22 @@ const GistList = ({ gists }) => {
     return <div>No gists available</div>;
   }
 
-  const itemStyles = {
-    background: "rgba(255, 179, 179, 0.3)",
-    padding: "5px",
-    margin: "2px",
-    display: "inline-block",
-  };
-
   let gistItems = [];
   if (gists) {
     gistItems = gists.map((gist, i) => (
       <div key={i}>
-        <Gist style={itemStyles} url={gist.url} />
+        <Gist
+          url={gist.url}
+          files={Object.values(gist.files).map((file, j) => (
+            <div key={file["language"] + j}>
+              {file["language"] !== "null" ? (
+                <ul key={gist.url}>{file["language"]}</ul>
+              ) : (
+                <ul key={gist.url}></ul>
+              )}
+            </div>
+          ))}
+        />
       </div>
     ));
   }

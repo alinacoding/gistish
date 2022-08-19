@@ -1,7 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import GistList from "./components/GistList/GistList";
-import { eventWrapper } from "@testing-library/user-event/dist/utils";
 
 const App = () => {
   const [error, setError] = useState(null);
@@ -9,6 +8,11 @@ const App = () => {
   const [queryUser, setQueryUser] = useState("");
   const [submittedButton, setSubmittedButton] = useState(false);
   const [queryUserChanged, setQueryUserChanged] = useState("false");
+  const [paginate, setPaginate] = useState(5);
+
+  const loadMore = (event) => {
+    setPaginate((prevValue) => prevValue + 5);
+  };
 
   useEffect(() => {
     console.log(submittedButton);
@@ -29,7 +33,9 @@ const App = () => {
         });
     }
   }, [submittedButton, queryUserChanged]);
-
+  if (gists.length) {
+    console.log(Object.values(gists[0].files)[0]["language"]);
+  }
   if (error) {
     return <div>{error.message}</div>;
   } else {
@@ -48,12 +54,14 @@ const App = () => {
                   setQueryUser(queryUser);
                   setGists(gists);
                   setQueryUserChanged(!queryUserChanged);
+                  setPaginate(5);
                 } else {
                   setGists([]);
                   setQueryUser("");
                   setError(error);
                   setSubmittedButton(false);
                   setQueryUserChanged(!queryUserChanged);
+                  setPaginate(5);
                 }
               }}
             >
@@ -73,7 +81,8 @@ const App = () => {
             </form>
           </div>
         </div>
-        <GistList gists={gists} />;
+        <GistList gists={gists.slice(0, paginate)} />
+        <button onClick={loadMore}>Load More</button>
       </div>
     );
   }
