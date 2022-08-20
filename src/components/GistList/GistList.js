@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import fontawesome from "@fortawesome/fontawesome";
 import { faQ } from "@fortawesome/free-solid-svg-icons";
 import { faQuestionCircle } from "@fortawesome/fontawesome-free-regular";
-import "../Gist/Gist.styles.css";
 
 class GistList extends Component {
   render() {
@@ -19,6 +18,7 @@ class GistList extends Component {
 
     let gistItems = [];
     if (gists) {
+      console.log(gists);
       gistItems = gists.map((gist, i) => (
         <div key={i}>
           <Gist
@@ -27,43 +27,57 @@ class GistList extends Component {
               <div key={file["language"] + j}>
                 {file["language"] !== null ? (
                   (() => {
-                    console.log(file["language"]);
                     switch (file["language"].toLowerCase()) {
                       case "java":
                         return (
-                          <div className="rowC" key={gist.url}>
-                            <FontAwesomeIcon
-                              key={gist.url}
-                              icon={faJava}
-                              className="fa-2x"
-                            ></FontAwesomeIcon>
+                          <div key={gist.url}>
+                            <a href={file["raw_url"]}>
+                              <FontAwesomeIcon
+                                key={gist.url}
+                                icon={faJava}
+                                className="fa-2x"
+                              ></FontAwesomeIcon>
+                            </a>
                           </div>
                         );
                       case "javascript":
                         return (
                           <div key={gist.url}>
-                            <FontAwesomeIcon className="fab fa-js fa-2x" />
+                            <a
+                              href={file["raw_url"]}
+                              onClick={() => {
+                                window.back();
+                              }}
+                            >
+                              <FontAwesomeIcon className="fab fa-js fa-2x" />
+                            </a>
                           </div>
                         );
                       case "python":
                         return (
                           <div key={gist.url}>
-                            <FontAwesomeIcon className="fab fa-python fa-2x" />
+                            <a href={file["raw_url"]}>
+                              <FontAwesomeIcon className="fab fa-python fa-2x" />
+                            </a>
                           </div>
                         );
                       case "markdown":
                         return (
                           <div key={gist.url}>
-                            <FontAwesomeIcon className="fas fa-code fa-2x" />
+                            <a href={file["raw_url"]}>
+                              <FontAwesomeIcon className="fas fa-code fa-2x" />
+                            </a>
                           </div>
                         );
                       case "text":
                         return (
                           <div key={gist.url}>
-                            <FontAwesomeIcon
-                              icon="fa-solid fa-file"
-                              className="fa-2x"
-                            />
+                            <a href={file["raw_url"]}>
+                              <FontAwesomeIcon
+                                icon="fa-solid fa-file"
+                                className="fa-2x"
+                              />
+                            </a>
                           </div>
                         );
                       default:
