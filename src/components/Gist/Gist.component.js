@@ -6,7 +6,7 @@ const Gist = ({ url, files }) => {
     <article className="url-article">
       {/* <div className="url-image"></div>
       <div className="url-content"> */}
-      <h2 className="url-name">{url}</h2>
+      {/* <h2 className="url-name">{url}</h2> */}
       {/* </div> */}
       <div>{files}</div>
     </article>

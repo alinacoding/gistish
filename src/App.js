@@ -1,7 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import GistList from "./components/GistList/GistList";
-
 const App = () => {
   const [error, setError] = useState(null);
   const [gists, setGists] = useState([]);
@@ -34,7 +33,7 @@ const App = () => {
     }
   }, [submittedButton, queryUserChanged]);
   if (gists.length) {
-    console.log(Object.values(gists[0].files)[0]["language"]);
+    console.log(gists);
   }
   if (error) {
     return <div>{error.message}</div>;
