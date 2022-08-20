@@ -19,7 +19,7 @@ const GistList = (props) => {
   fontawesome.library.add(faJava, faQ, faQuestionCircle);
 
   let gistItems = [];
-  if (gists) {
+  if (gists.length) {
     console.log(gists);
     gistItems = gists.map((gist, i) => (
       <div key={i}>

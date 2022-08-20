@@ -13,7 +13,7 @@ const File = (props) => {
   const [queryUserChanged, setQueryUserChanged] = useState(false);
   const [submittedButton, setSubmittedButton] = useState(false);
   const [queryUser, setQueryUser] = useState("");
-  const [prevUser, setPrevUser] = useState("");
+  //const [prevUser, setPrevUser] = useState("");
   const [gists, setGists] = useState([]);
   return (
     <div key={file["language"] + index}>
@@ -35,13 +35,7 @@ const File = (props) => {
             case "text":
               return <Badge file={file} url={url} iconStyle={"fas fa-file"} />;
             default:
-              return (
-                <Badge
-                  file={file}
-                  url={url}
-                  iconStyle={"fas fa-circle-question"}
-                />
-              );
+              return <Badge file={file} url={url} iconStyle={"fas fa-file"} />;
           }
         })()
       ) : (

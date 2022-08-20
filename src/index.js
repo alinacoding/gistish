@@ -14,12 +14,12 @@ import {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
+    {/* <Router>
       <Routes>
         <Route path="/"></Route>
-      </Routes>
-      <App />
-    </Router>
+      </Routes> */}
+    <App />
+    {/* </Router> */}
   </React.StrictMode>
 );
 
