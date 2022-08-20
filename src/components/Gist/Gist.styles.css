@@ -13,17 +13,7 @@
   -webkit-box-orient: none;
   overflow: visible;
 }
-.url-image {
-  max-height: 150px;
-  overflow: hidden;
-}
-.url-image img {
-  margin-top: -13px;
-  min-height: 100%;
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
-}
+
 .url-content {
   padding: 32px 15px;
 }

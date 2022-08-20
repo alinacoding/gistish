@@ -1,6 +1,8 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import GistList from "./components/GistList/GistList";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const [error, setError] = useState(null);
@@ -9,33 +11,35 @@ const App = () => {
   const [submittedButton, setSubmittedButton] = useState(false);
   const [queryUserChanged, setQueryUserChanged] = useState("false");
   const [paginate, setPaginate] = useState(5);
+  const [prevUser, setPrevUser] = useState("");
+  const history = useNavigate();
 
   const loadMore = (event) => {
     setPaginate((prevValue) => prevValue + 5);
   };
 
   useEffect(() => {
-    console.log(submittedButton);
-    const request_options = {
-      method: "GET",
+    const onSubmit = async () => {
+      const request_options = {
+        method: "GET",
+      };
+      if (submittedButton && queryUserChanged && queryUser) {
+        const resp = await fetch(
+          "https://api.github.com/users/" + queryUser + "/gists",
+          request_options
+        );
+        const json = await resp.json();
+        setGists(json);
+      }
     };
-    if (queryUser) {
-      fetch(
-        "https://api.github.com/users/" + queryUser + "/gists",
-        request_options
-      )
-        .then((res) => res.json())
-        .then((result) => {
-          setGists(result);
-        })
-        .catch((error) => {
-          setError(error);
-        });
-    }
-  }, [submittedButton, queryUserChanged]);
-  if (gists.length) {
-    console.log(gists);
-  }
+    onSubmit().catch((error) => {
+      setError(error);
+    });
+  }, [submittedButton, queryUserChanged, queryUser]);
+  console.log("Submitted button", submittedButton);
+  console.log("queryUserChanged", queryUserChanged);
+  console.log("gists", gists);
+
   if (error) {
     return <div>{error.message}</div>;
   } else {
@@ -49,19 +53,16 @@ const App = () => {
                 console.log("Submitted");
                 event.preventDefault();
                 if (!error) {
-                  console.log("No errors");
                   setSubmittedButton(true);
-                  setQueryUser(queryUser);
-                  setGists(gists);
-                  setQueryUserChanged(!queryUserChanged);
+                  setPrevUser(queryUser);
+                  setQueryUserChanged(true);
                   setPaginate(5);
                 } else {
-                  setGists([]);
-                  setQueryUser("");
+                  setQueryUserChanged(true);
                   setError(error);
-                  setSubmittedButton(false);
-                  setQueryUserChanged(!queryUserChanged);
                   setPaginate(5);
+                  setSubmittedButton(true);
+                  setQueryUser(prevUser);
                 }
               }}
             >
@@ -74,6 +75,7 @@ const App = () => {
                 onChange={(event) => {
                   event.preventDefault();
                   setQueryUser(event.target.value);
+
                   console.log(event.target.value);
                 }}
               />
