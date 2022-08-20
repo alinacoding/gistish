@@ -13,21 +13,9 @@ const App = () => {
   const [gists, setGists] = useState([]);
 
   const [queryUser, setQueryUser] = useState("");
-  const [submittedButton, setSubmittedButton] = useState(() => {
-    console.log("here i become false");
-    return false;
-  });
+  const [submittedButton, setSubmittedButton] = useState(false);
   const [queryUserChanged, setQueryUserChanged] = useState(false);
   const [paginate, setPaginate] = useState(5);
-  function usePrevious(value) {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = value;
-    }, [value]);
-    return ref.current;
-  }
-  const prevUser = usePrevious(queryUser);
-  console.log("PREVIOUS USER", prevUser);
 
   const loadMore = (event) => {
     setPaginate((prevValue) => prevValue + 5);
@@ -35,15 +23,14 @@ const App = () => {
 
   useEffect(() => {
     const onSubmit = async () => {
-      const request_options = {
+      const requestOptions = {
         method: "GET",
       };
 
       if (submittedButton && queryUserChanged && queryUser) {
-        console.log("Retriggered");
         const resp = await fetch(
           "https://api.github.com/users/" + queryUser + "/gists",
-          request_options
+          requestOptions
         );
         const json = await resp.json();
         setGists(json);
@@ -55,7 +42,6 @@ const App = () => {
         }
         localStorage.setItem("submittedButton", JSON.stringify(true));
         localStorage.setItem("queryUserChanged", JSON.stringify(true));
-        console.log("STORING", localStorage);
       }
     };
     onSubmit().catch((error) => {
@@ -64,23 +50,18 @@ const App = () => {
   }, [submittedButton, queryUserChanged, queryUser]);
 
   useEffect(() => {
-    console.log("ThIs hook is called");
     const checkUserData = () => {
       const qu = localStorage.getItem("queryUser");
-      console.log(qu);
       const bs = localStorage.getItem("submittedButton");
       const quc = localStorage.getItem("queryUserChanged");
       if (qu) {
         setQueryUser(JSON.parse(qu));
-        console.log("QU", qu);
       }
       if (bs) {
         setSubmittedButton(bs);
-        console.log("BS", bs);
       }
       if (quc) {
         setQueryUserChanged(quc);
-        console.log("QUC", quc);
       }
     };
     checkUserData();
@@ -90,10 +71,6 @@ const App = () => {
       window.removeEventListener("storage", checkUserData);
     };
   }, []);
-  console.log("Submitted button", submittedButton);
-  console.log("queryUserChanged", queryUserChanged);
-  console.log("current user", queryUser);
-  console.log("gists", gists);
 
   if (error) {
     return <div>{error.message}</div>;
@@ -111,7 +88,6 @@ const App = () => {
                   setQueryUserChanged(true);
                   setPaginate(5);
                   setSubmittedButton(true);
-                  //setQueryUser(localStorage.getItem("prevQueryUser"));
                 } else {
                   setQueryUserChanged(false);
                   setError(error);
@@ -138,8 +114,6 @@ const App = () => {
                   setQueryUser(event.target.value);
                   setSubmittedButton(false);
                   setQueryUserChanged(true);
-                  console.log(event.target.value);
-                  console.log("MY STORAGE", localStorage);
                 }}
               />
               <span className="search-username">Search gists for username</span>
