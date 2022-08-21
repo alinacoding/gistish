@@ -1,20 +1,24 @@
 import "./App.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import GistList from "./components/GistList/GistList";
 
 const App = () => {
-  window.onunload = function () {
-    localStorage.removeItem("queryUser");
-    localStorage.removeItem("submittedButton");
-    localStorage.removeItem("queryUserChanged");
+  window.onbeforeunload = function () {
+    checkUserData();
     localStorage.clear();
   };
   const [error, setError] = useState(null);
   const [gists, setGists] = useState([]);
 
-  const [queryUser, setQueryUser] = useState("");
-  const [submittedButton, setSubmittedButton] = useState(false);
-  const [queryUserChanged, setQueryUserChanged] = useState(false);
+  const [queryUser, setQueryUser] = useState(() => {
+    return JSON.parse(localStorage.getItem("queryUser")) || "";
+  });
+  const [submittedButton, setSubmittedButton] = useState(() => {
+    return JSON.parse(localStorage.getItem("submittedButton")) || false;
+  });
+  const [queryUserChanged, setQueryUserChanged] = useState(() => {
+    return JSON.parse(localStorage.getItem("queryUserChanged")) || false;
+  });
   const [paginate, setPaginate] = useState(5);
 
   const loadMore = (event) => {
@@ -49,29 +53,20 @@ const App = () => {
     });
   }, [submittedButton, queryUserChanged, queryUser]);
 
-  useEffect(() => {
-    const checkUserData = () => {
-      const qu = localStorage.getItem("queryUser");
-      const bs = localStorage.getItem("submittedButton");
-      const quc = localStorage.getItem("queryUserChanged");
-      if (qu) {
-        setQueryUser(JSON.parse(qu));
-      }
-      if (bs) {
-        setSubmittedButton(bs);
-      }
-      if (quc) {
-        setQueryUserChanged(quc);
-      }
-    };
-    checkUserData();
-    window.addEventListener("storage", checkUserData);
-
-    return () => {
-      window.removeEventListener("storage", checkUserData);
-    };
-  }, []);
-
+  const checkUserData = () => {
+    const qu = localStorage.getItem("queryUser");
+    const bs = localStorage.getItem("submittedButton");
+    const quc = localStorage.getItem("queryUserChanged");
+    if (qu) {
+      setQueryUser(JSON.parse(qu));
+    }
+    if (bs) {
+      setSubmittedButton(bs);
+    }
+    if (quc) {
+      setQueryUserChanged(quc);
+    }
+  };
   if (error) {
     return <div>{error.message}</div>;
   } else {
