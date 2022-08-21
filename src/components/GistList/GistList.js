@@ -1,22 +1,14 @@
 import React, { Component, useEffect } from "react";
 import Gist from "../Gist/Gist.component";
-import { faJava } from "@fortawesome/fontawesome-free-brands";
 import "@fortawesome/fontawesome-free-solid";
 import "@fortawesome/fontawesome-free-regular";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import fontawesome from "@fortawesome/fontawesome";
-import { faQ } from "@fortawesome/free-solid-svg-icons";
-import { faQuestionCircle } from "@fortawesome/fontawesome-free-regular";
 import File from "../File/File.component";
 
 const GistList = (props) => {
-  //   useEffect(() => {}, []);
-
   let { gists } = props;
   if (!gists) {
     return <div>No gists available</div>;
   }
-  fontawesome.library.add(faJava, faQ, faQuestionCircle);
 
   let gistItems = [];
   if (gists.length) {
