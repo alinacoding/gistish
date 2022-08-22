@@ -1,5 +1,7 @@
 import "@fortawesome/fontawesome-free-solid";
 import "@fortawesome/fontawesome-free-regular";
+import "@fortawesome/fontawesome-free-brands";
+
 import Badge from "../Badge/Badge.component";
 
 const File = (props) => {
@@ -8,7 +10,7 @@ const File = (props) => {
     <div key={file["language"] + index}>
       {file["language"] !== null ? (
         (() => {
-          console.log(file);
+          //console.log(file);
           let language = file["language"].toLowerCase();
           switch (language) {
             case "java":

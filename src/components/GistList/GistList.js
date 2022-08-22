@@ -5,14 +5,14 @@ import "@fortawesome/fontawesome-free-regular";
 import File from "../File/File.component";
 
 const GistList = (props) => {
-  let { gists } = props;
-  if (!gists) {
-    return <div>No gists available</div>;
+  const { gists } = props;
+  if (!gists.length) {
+    return <div></div>;
   }
 
   let gistItems = [];
   if (gists.length) {
-    console.log(gists);
+    //console.log(gists);
     gistItems = gists.map((gist, i) => (
       <div key={i}>
         <Gist

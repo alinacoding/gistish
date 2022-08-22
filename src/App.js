@@ -5,7 +5,6 @@ import GistList from "./components/GistList/GistList";
 const App = () => {
   window.onbeforeunload = function () {
     checkUserData();
-    localStorage.clear();
   };
   const [error, setError] = useState(null);
   const [gists, setGists] = useState([]);
@@ -61,10 +60,10 @@ const App = () => {
       setQueryUser(JSON.parse(qu));
     }
     if (bs) {
-      setSubmittedButton(bs);
+      setSubmittedButton(JSON.parse(bs));
     }
     if (quc) {
-      setQueryUserChanged(quc);
+      setQueryUserChanged(JSON.parse(quc));
     }
   };
   if (error) {
