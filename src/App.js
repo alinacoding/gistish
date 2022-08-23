@@ -93,6 +93,7 @@ const App = () => {
         <div className="container">
           <div>
             <Particles
+              id="ts-paricles"
               options={options}
               init={particlesInit}
               loaded={particlesLoaded}
