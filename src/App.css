@@ -1,6 +1,6 @@
 .App {
   /* text-align: center; */
-  background-color: #cceeff;
+  background-color: #0d47a1;
   background-repeat: repeat-y;
 }
 
@@ -10,6 +10,9 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;
+}
+body {
+  font-family: "Lemon", cursive;
 }
 
 .search-username {
@@ -78,7 +81,7 @@ select:focus + .focus {
 }
 
 .search-input {
-  background-color: var(--bg-offset);
+  background-color: #b3e0ff;
   background-size: 16px 16px;
   background-position: left 10px center;
   background-repeat: no-repeat;

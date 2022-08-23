@@ -1207,6 +1207,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@fontsource/lemon@^4.5.10":
+  version "4.5.10"
+  resolved "https://registry.yarnpkg.com/@fontsource/lemon/-/lemon-4.5.10.tgz#98df851ddb2a0b16a0374a08cf91d6b0265b2346"
+  integrity sha512-230Yr4IUZPe85+q2sAGjjtqQshUkdhBf+WE956WzTVcnepn2KYbgySLNjrt4P93G6GxVb6BHJLC3VD9j5yQIOQ==
+
 "@fortawesome/fontawesome-common-types@6.1.2", "@fortawesome/fontawesome-common-types@^6.1.2":
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.1.2.tgz#c1095b1bbabf19f37f9ff0719db38d92a410bcfe"

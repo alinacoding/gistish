@@ -6,6 +6,7 @@ import { loadFull } from "tsparticles";
 import { useCallback } from "react";
 import { options } from "./constants/tsoptions";
 import logo from "./static/Octocat.png";
+import "@fontsource/lemon";
 
 const App = () => {
   const particlesInit = useCallback(async (engine) => {
