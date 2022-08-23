@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React from "react";
 import Gist from "../Gist/Gist.component";
 import "@fortawesome/fontawesome-free-solid";
 import "@fortawesome/fontawesome-free-regular";
@@ -12,7 +12,6 @@ const GistList = (props) => {
 
   let gistItems = [];
   if (gists.length) {
-    //console.log(gists);
     gistItems = gists.map((gist, i) => (
       <div key={i}>
         <Gist
