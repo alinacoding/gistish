@@ -5,6 +5,7 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { useCallback } from "react";
 import { options } from "./constants/tsoptions";
+import logo from "./static/Octocat.png";
 
 const App = () => {
   const particlesInit = useCallback(async (engine) => {
@@ -84,62 +85,72 @@ const App = () => {
     return <div>{error.message}</div>;
   } else {
     return (
-      <div className="container">
-        <Particles
-          // id="tsparticles"
-          // width="100vw"
-          // height="100vh"
-          options={options}
-          init={particlesInit}
-          loaded={particlesLoaded}
-        />
-        <div className="wrapper">
-          <div className="search-wrapper">
-            <form
-              htmlFor="search-form"
-              onSubmit={(event) => {
-                console.log("Submitted");
-                event.preventDefault();
-                if (!error) {
-                  setQueryUserChanged(true);
-                  setPaginate(4);
-                  setSubmittedButton(true);
-                } else {
-                  setQueryUserChanged(false);
-                  setError(error);
-                  setPaginate(4);
-                  setSubmittedButton(false);
-                }
-              }}
-            >
-              <input
-                type="search"
-                name="search-form"
-                id="search-form"
-                className="search-input"
-                placeholder="Search user"
-                onChange={(event) => {
-                  event.preventDefault();
-                  console.log("Event target value", event.target.value);
-                  if (event.target.value === "") {
-                    localStorage.setItem("queryUser", JSON.stringify(""));
-                    localStorage.setItem("submittedButton", false);
-                    localStorage.setItem("queryUserChanged", queryUserChanged);
-                    setGists([]);
-                  }
-                  setQueryUser(event.target.value);
-                  setSubmittedButton(false);
-                  setQueryUserChanged(true);
-                }}
-              />
-              <span className="search-username">Search gists for username</span>
-            </form>
-          </div>
-          <GistList
-            gists={gists.length >= paginate ? gists.slice(0, paginate) : gists}
-          />
+      <div className="App">
+        <div className="logo-main">
+          <img src={logo} alt="logo"></img>
         </div>
-        <button onClick={loadMore}>Load More</button>
+        <div className="container">
+          <div>
+            <Particles
+              options={options}
+              init={particlesInit}
+              loaded={particlesLoaded}
+            />
+            <div className="wrapper">
+              <span className="search-username">Search gists for username</span>
+
+              <div className="search-wrapper">
+                <form
+                  htmlFor="search-form"
+                  onSubmit={(event) => {
+                    console.log("Submitted");
+                    event.preventDefault();
+                    if (!error) {
+                      setQueryUserChanged(true);
+                      setPaginate(4);
+                      setSubmittedButton(true);
+                    } else {
+                      setQueryUserChanged(false);
+                      setError(error);
+                      setPaginate(4);
+                      setSubmittedButton(false);
+                    }
+                  }}
+                >
+                  <input
+                    type="search"
+                    name="search-form"
+                    id="search-form"
+                    className="search-input"
+                    placeholder="Search user"
+                    onChange={(event) => {
+                      event.preventDefault();
+                      console.log("Event target value", event.target.value);
+                      if (event.target.value === "") {
+                        localStorage.setItem("queryUser", JSON.stringify(""));
+                        localStorage.setItem("submittedButton", false);
+                        localStorage.setItem(
+                          "queryUserChanged",
+                          queryUserChanged
+                        );
+                        setGists([]);
+                      }
+                      setQueryUser(event.target.value);
+                      setSubmittedButton(false);
+                      setQueryUserChanged(true);
+                    }}
+                  />
+                </form>
+              </div>
+              <GistList
+                gists={
+                  gists.length >= paginate ? gists.slice(0, paginate) : gists
+                }
+              />
+            </div>
+          </div>
+          <button onClick={loadMore}>Load More</button>
+        </div>
       </div>
     );
   }
