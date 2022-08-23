@@ -10,7 +10,7 @@ const File = (props) => {
     <div key={file["language"] + index}>
       {file["language"] !== null ? (
         (() => {
-          //console.log(file);
+          console.log(file);
           let language = file["language"].toLowerCase();
           switch (language) {
             case "java":
@@ -20,6 +20,12 @@ const File = (props) => {
             case "python":
               return (
                 <Badge file={file} url={url} iconStyle={"fab fa-python"} />
+              );
+            case "ruby":
+              return <Badge file={file} url={url} iconStyle={"fas fa-gem"} />;
+            case "maven pom":
+              return (
+                <Badge file={file} url={url} iconStyle={"fas fa-feather"} />
               );
             case "javascript":
               return <Badge file={file} url={url} iconStyle={"fab fa-js"} />;
