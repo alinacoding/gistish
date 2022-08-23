@@ -135,10 +135,10 @@ const App = () => {
               <span className="search-username">Search gists for username</span>
             </form>
           </div>
+          <GistList
+            gists={gists.length >= paginate ? gists.slice(0, paginate) : gists}
+          />
         </div>
-        <GistList
-          gists={gists.length >= paginate ? gists.slice(0, paginate) : gists}
-        />
         <button onClick={loadMore}>Load More</button>
       </div>
     );
