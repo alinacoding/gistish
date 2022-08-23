@@ -1,10 +1,23 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import GistList from "./components/GistList/GistList";
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
+import { useCallback } from "react";
+import { options } from "./constants/tsoptions";
 
 const App = () => {
+  const particlesInit = useCallback(async (engine) => {
+    console.log(engine);
+    await loadFull(engine);
+  }, []);
+
+  const particlesLoaded = useCallback(async (container) => {
+    await console.log(container);
+  }, []);
+
   window.onbeforeunload = function () {
-    checkUserData();
+    //localStorage.clear();
   };
   const [error, setError] = useState(null);
   const [gists, setGists] = useState([]);
@@ -18,10 +31,10 @@ const App = () => {
   const [queryUserChanged, setQueryUserChanged] = useState(() => {
     return JSON.parse(localStorage.getItem("queryUserChanged")) || false;
   });
-  const [paginate, setPaginate] = useState(5);
+  const [paginate, setPaginate] = useState(4);
 
   const loadMore = (event) => {
-    setPaginate((prevValue) => prevValue + 5);
+    setPaginate((prevValue) => prevValue + 4);
   };
 
   useEffect(() => {
@@ -66,11 +79,20 @@ const App = () => {
       setQueryUserChanged(JSON.parse(quc));
     }
   };
+
   if (error) {
     return <div>{error.message}</div>;
   } else {
     return (
-      <div>
+      <div className="container">
+        <Particles
+          // id="tsparticles"
+          // width="100vw"
+          // height="100vh"
+          options={options}
+          init={particlesInit}
+          loaded={particlesLoaded}
+        />
         <div className="wrapper">
           <div className="search-wrapper">
             <form
@@ -80,12 +102,12 @@ const App = () => {
                 event.preventDefault();
                 if (!error) {
                   setQueryUserChanged(true);
-                  setPaginate(5);
+                  setPaginate(4);
                   setSubmittedButton(true);
                 } else {
                   setQueryUserChanged(false);
                   setError(error);
-                  setPaginate(5);
+                  setPaginate(4);
                   setSubmittedButton(false);
                 }
               }}
