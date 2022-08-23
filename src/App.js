@@ -9,15 +9,14 @@ import {
 } from "./contexts/StoreContext/StoreContext";
 import { useContext, useEffect } from "react";
 import SearchWrapper from "./components/SearchWrapper/SearchWrapper";
+import LoadMoreButton from "./components/LoadMoreButton/LoadMoreButton";
 
 const App = (props) => {
   window.onload = function (event) {
-    console.log("called");
-    // document.getElementById("search-form").value = JSON.parse(
-    //   localStorage.getItem("queryUser")
-    // );
+    document.getElementById("search-form").value = JSON.parse(
+      localStorage.getItem("queryUser")
+    );
   };
-  console.log(useContext(StoreContext));
 
   const {
     submittedButtonVS,
@@ -27,7 +26,6 @@ const App = (props) => {
     errorVS,
     gistsVS,
   } = useContext(StoreContext);
-  console.log("SUB", submittedButtonVS);
   const [submittedButtonValue, setSubmittedButtonValue] = submittedButtonVS;
   const [queryUserValue, setQueryUserValue] = queryUserVS;
   const [queryUserChangedValue, setQueryUserChangedValue] = queryUserChangedVS;
@@ -35,10 +33,8 @@ const App = (props) => {
   const [errorValue, setErrorValue] = errorVS;
   const [gistsValue, setGistsValue] = gistsVS;
 
-  // console.log(submittedButtonValue);
-
   const loadMore = (event) => {
-    //setPaginateValue((prevValue) => prevValue + 4);
+    setPaginateValue((prevValue) => prevValue + 4);
   };
 
   useEffect(() => {
@@ -88,7 +84,7 @@ const App = (props) => {
             />
           </div>
         </div>
-        <button onClick={loadMore}>Load More</button>
+        <LoadMoreButton />
       </div>
     );
   }
