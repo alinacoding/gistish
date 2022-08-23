@@ -17,21 +17,34 @@ const App = () => {
   const particlesLoaded = useCallback(async (container) => {
     await console.log(container);
   }, []);
-
-  window.onbeforeunload = function () {
-    //localStorage.clear();
-  };
   const [error, setError] = useState(null);
   const [gists, setGists] = useState([]);
 
+  window.onload = function (event) {
+    console.log("called");
+    document.getElementById("search-form").value = JSON.parse(
+      localStorage.getItem("queryUser")
+    );
+    setGists([]);
+  };
+
   const [queryUser, setQueryUser] = useState(() => {
-    return JSON.parse(localStorage.getItem("queryUser")) || "";
+    if (localStorage.getItem("queryUser")) {
+      return JSON.parse(localStorage.getItem("queryUser"));
+    }
+    return "";
   });
   const [submittedButton, setSubmittedButton] = useState(() => {
-    return JSON.parse(localStorage.getItem("submittedButton")) || false;
+    if (localStorage.getItem("submittedButton")) {
+      return JSON.parse(localStorage.getItem("submittedButton"));
+    }
+    return false;
   });
   const [queryUserChanged, setQueryUserChanged] = useState(() => {
-    return JSON.parse(localStorage.getItem("queryUserChanged")) || false;
+    if (localStorage.getItem("queryUserChanged")) {
+      return JSON.parse(localStorage.getItem("queryUserChanged"));
+    }
+    return false;
   });
   const [paginate, setPaginate] = useState(4);
 
@@ -66,21 +79,6 @@ const App = () => {
       setError(error);
     });
   }, [submittedButton, queryUserChanged, queryUser]);
-
-  const checkUserData = () => {
-    const qu = localStorage.getItem("queryUser");
-    const bs = localStorage.getItem("submittedButton");
-    const quc = localStorage.getItem("queryUserChanged");
-    if (qu) {
-      setQueryUser(JSON.parse(qu));
-    }
-    if (bs) {
-      setSubmittedButton(JSON.parse(bs));
-    }
-    if (quc) {
-      setQueryUserChanged(JSON.parse(quc));
-    }
-  };
 
   if (error) {
     return <div>{error.message}</div>;
@@ -141,6 +139,12 @@ const App = () => {
                       setSubmittedButton(false);
                       setQueryUserChanged(true);
                     }}
+                    onClick={(event) => {
+                      console.log("clicked");
+                      localStorage.clear();
+                      document.getElementById("search-form").value = "";
+                      setGists([]);
+                    }}
                   />
                 </form>
               </div>
@@ -157,5 +161,4 @@ const App = () => {
     );
   }
 };
-
 export default App;
