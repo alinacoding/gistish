@@ -1,8 +1,7 @@
 import "@fortawesome/fontawesome-free-solid";
 import "@fortawesome/fontawesome-free-regular";
 import "@fortawesome/fontawesome-free-brands";
-
-import Badge from "../Badge/Badge.component";
+import FileWrapper from "../FileWrapper/FileWrapper.component";
 
 const File = (props) => {
   const { file, index, url } = props;
@@ -14,25 +13,85 @@ const File = (props) => {
           let language = file["language"].toLowerCase();
           switch (language) {
             case "java":
-              return <Badge file={file} url={url} iconStyle={"fab fa-java"} />;
+              return (
+                <FileWrapper
+                  properties={{
+                    file: file,
+                    url: url,
+                    iconStyle: "fab fa-java",
+                  }}
+                />
+              );
             case "markdown":
-              return <Badge file={file} url={url} iconStyle={"fas fa-file"} />;
+              return (
+                <FileWrapper
+                  properties={{
+                    file: file,
+                    url: url,
+                    iconStyle: "fas fa-file",
+                  }}
+                />
+              );
             case "python":
               return (
-                <Badge file={file} url={url} iconStyle={"fab fa-python"} />
+                <FileWrapper
+                  properties={{
+                    file: file,
+                    url: url,
+                    iconStyle: "fab fa-python",
+                  }}
+                />
               );
             case "ruby":
-              return <Badge file={file} url={url} iconStyle={"fas fa-gem"} />;
+              return (
+                <FileWrapper
+                  properties={{
+                    file: file,
+                    url: url,
+                    iconStyle: "fab fa-gem",
+                  }}
+                />
+              );
             case "maven pom":
               return (
-                <Badge file={file} url={url} iconStyle={"fas fa-feather"} />
+                <FileWrapper
+                  properties={{
+                    file: file,
+                    url: url,
+                    iconStyle: "fas fa-feather",
+                  }}
+                />
               );
             case "javascript":
-              return <Badge file={file} url={url} iconStyle={"fab fa-js"} />;
+              return (
+                <FileWrapper
+                  properties={{
+                    file: file,
+                    url: url,
+                    iconStyle: "fab fa-js",
+                  }}
+                />
+              );
             case "text":
-              return <Badge file={file} url={url} iconStyle={"fas fa-file"} />;
+              return (
+                <FileWrapper
+                  properties={{
+                    file: file,
+                    url: url,
+                    iconStyle: "fas fa-file",
+                  }}
+                />
+              );
             default:
-              return <Badge file={file} url={url} iconStyle={"fas fa-file"} />;
+              return (
+                <FileWrapper
+                  properties={{
+                    file: file,
+                    url: url,
+                    iconStyle: "fas fa-file",
+                  }}
+                />
+              );
           }
         })()
       ) : (
