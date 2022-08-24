@@ -1,8 +1,5 @@
-import React, { useState, useContext } from "react";
-import {
-  StoreContext,
-  StoreContextProvider,
-} from "../../contexts/StoreContext/StoreContext";
+import React, { useContext } from "react";
+import { StoreContext } from "../../contexts/StoreContext/StoreContext";
 
 const SearchWrapper = () => {
   const {
@@ -23,7 +20,6 @@ const SearchWrapper = () => {
   return (
     <div className="wrapper">
       <span className="search-username">Search gists for username</span>
-
       <div className="search-wrapper">
         <form
           htmlFor="search-form"
@@ -62,8 +58,6 @@ const SearchWrapper = () => {
               setQueryUserChangedValue(true);
             }}
             onClick={(event) => {
-              console.log("clicked");
-              localStorage.clear();
               document.getElementById("search-form").value = "";
               setGistsValue([]);
             }}

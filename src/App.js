@@ -3,10 +3,10 @@ import GistList from "./components/GistList/GistList";
 import "@fontsource/lemon";
 import Logo from "./components/Logo/Logo.component";
 import ParticlesComponent from "./components/ParticlesComponent/ParticlesComponent";
-import { StoreContext } from "./contexts/StoreContext/StoreContext";
 import { useContext, useEffect } from "react";
 import SearchWrapper from "./components/SearchWrapper/SearchWrapper";
 import LoadMoreButton from "./components/LoadMoreButton/LoadMoreButton";
+import { StoreContext } from "./contexts/StoreContext/StoreContext";
 
 const App = (props) => {
   window.onload = function (event) {
