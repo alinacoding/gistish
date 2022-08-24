@@ -48,7 +48,7 @@ const File = (props) => {
                   properties={{
                     file: file,
                     url: url,
-                    iconStyle: "fab fa-gem",
+                    iconStyle: "fas fa-gem",
                   }}
                 />
               );
