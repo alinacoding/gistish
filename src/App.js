@@ -3,10 +3,7 @@ import GistList from "./components/GistList/GistList";
 import "@fontsource/lemon";
 import Logo from "./components/Logo/Logo.component";
 import ParticlesComponent from "./components/ParticlesComponent/ParticlesComponent";
-import {
-  StoreContext,
-  StoreContextProvider,
-} from "./contexts/StoreContext/StoreContext";
+import { StoreContext } from "./contexts/StoreContext/StoreContext";
 import { useContext, useEffect } from "react";
 import SearchWrapper from "./components/SearchWrapper/SearchWrapper";
 import LoadMoreButton from "./components/LoadMoreButton/LoadMoreButton";
@@ -32,10 +29,6 @@ const App = (props) => {
   const [paginateValue, setPaginateValue] = paginateVS;
   const [errorValue, setErrorValue] = errorVS;
   const [gistsValue, setGistsValue] = gistsVS;
-
-  const loadMore = (event) => {
-    setPaginateValue((prevValue) => prevValue + 4);
-  };
 
   useEffect(() => {
     const onSubmit = async () => {
